@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ให้พี่ดนตรี ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600&display=swap');
+
+*{box-sizing:border-box}
+:root{--pink:#f6b8d0;--dark:#c85d91;--pale:#fff3f8}
+
+body{
+  margin:0;min-height:100vh;overflow-x:hidden;
+  font-family:'Mali',sans-serif;color:#87566e;
+  background:linear-gradient(135deg,#fffaff,#ffeaf3,#fff7fb);
+}
+
+button{font:inherit;cursor:pointer;transition:.25s}
+button:hover{transform:translateY(-2px)}
+
+#sky{
+  position:fixed;inset:0;pointer-events:none;
+  overflow:hidden;z-index:0;
+}
+
+.float{
+  position:absolute;bottom:-40px;
+  animation:rise linear forwards;opacity:.7;
+}
+
+@keyframes rise{
+  to{transform:translateY(-115vh) rotate(360deg);opacity:0}
+}
+
+main{
+  position:relative;z-index:1;width:min(92%,480px);
+  margin:25px auto;padding:27px 22px 30px;
+  background:#ffffffdf;border:1px solid white;
+  border-radius:30px;text-align:center;
+  box-shadow:0 15px 55px #e8a6c533;
+}
+
+.tag{font-size:12px;letter-spacing:2px;color:#c17b9d}
+h1{font-size:clamp(27px,7vw,38px);color:#d66b9c;margin:10px 0}
+.subtitle{font-size:14px;line-height:1.9}
+
+.heart{
+  font-size:54px;display:inline-block;
+  animation:beat 1.2s infinite;
+}
+
+@keyframes beat{50%{transform:scale(1.15)}}
+
+/* MUSIC PLAYER */
+.music-player{
+  margin:22px 0;padding:16px;
+  border:1px solid #f9dce9;border-radius:22px;
+  background:linear-gradient(135deg,#fff3f8,#ffe4ef);
+  box-shadow:0 8px 25px #e8a6c522;
+}
+
+.music-info{
+  display:flex;align-items:center;gap:12px;
+  text-align:left;margin-bottom:12px;
+}
+
+.music-icon{font-size:30px}
+.music-info b{display:block;color:#c85d91;font-size:14px}
+.music-info small{display:block;color:#bd8ca5;font-size:11px}
+
+.music-link{
+  display:block;padding:12px;border-radius:25px;
+  background:#e99abb;color:white;text-decoration:none;
+  font-size:14px;box-shadow:0 5px 15px #e9a6c555;
+}
+
+.music-link:hover{background:#d66b9c}
+.music-player p{font-size:11px;color:#bd8ca5;line-height:1.8}
+
+/* ENVELOPE */
+.envelope-wrap{margin:25px auto 18px;perspective:700px}
+
+.envelope{
+  width:220px;height:145px;margin:auto;
+  position:relative;background:#f7bfd5;
+  border-radius:8px;cursor:pointer;
+  box-shadow:0 10px 25px #d985ab35;
+}
+
+.envelope:before{
+  content:"";position:absolute;inset:0;
+  background:#f5aeca;
+  clip-path:polygon(0 0,50% 62%,100% 0);
+  z-index:3;transition:transform .5s;
+  transform-origin:top;
+}
+
+.envelope:after{
+  content:"";position:absolute;inset:0;
+  background:#f9d5e4;
+  clip-path:polygon(0 100%,50% 48%,100% 100%);
+  z-index:2;
+}
+
+.seal{
+  position:absolute;z-index:4;left:50%;top:42%;
+  transform:translate(-50%,-50%);font-size:32px;
+}
+
+.letter{
+  position:absolute;z-index:1;left:10px;right:10px;
+  top:8px;height:120px;overflow:hidden;
+  background:#fffdfd;border-radius:8px;padding:12px;
+  font-size:13px;transition:transform .7s,height .7s;
+}
+
+.envelope.open .letter{
+  transform:translateY(-95px);height:205px;z-index:4;
+}
+
+.envelope.open:before{transform:rotateX(180deg);z-index:1}
+.envelope.open .seal{opacity:0}
+.hint{font-size:12px;color:#bd8ca5}
+
+.card{
+  background:var(--pale);border:1px solid #f9dce9;
+  border-radius:20px;padding:20px;margin-top:20px;
+  line-height:1.95;display:none;
+  animation:appear .6s ease;
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card h2{font-size:23px;color:#d66b9c}
+
+.primary,.secondary{
+  border:0;border-radius:30px;padding:12px 20px;
+}
+
+.primary{background:#e99abb;color:white}
+.secondary{
+  background:white;border:1px solid #f0c4d9;color:#bd7095;
+}
+
+.actions{
+  display:flex;gap:10px;justify-content:center;
+  flex-wrap:wrap;margin-top:18px;
+}
+
+#noBtn{position:relative}
+#reply{font-size:15px;color:#c45d91;margin-top:15px;min-height:30px}
+.footer{margin-top:25px;font-size:12px;color:#c49bb0}
+
+.sparkle{
+  position:fixed;pointer-events:none;z-index:9;
+  animation:burst 1.2s forwards;
+}
+
+@keyframes burst{
+  to{
+    transform:translate(var(--x),var(--y))
+      rotate(540deg) scale(.2);
+    opacity:0;
+  }
+}
+
+@media(max-width:360px){
+  main{padding:22px 15px}
+  .card{padding:16px}
+}
+</style>
+</head>
+
+<body>
+<div id="sky"></div>
+
+<main>
+  <div class="tag">A LITTLE SECRET FOR YOU ♡</div>
+  <div class="heart">🐰💗</div>
+  <h1>ถึงพี่ดนตรี ♡</h1>
+
+  <p class="subtitle">
+    มีอะไรบางอย่างอยากบอกพี่มานานแล้ว<br>
+    แต่ถ้าพูดตรง ๆ ก็เขินเกินไปหน่อย 🥹
+  </p>
+
+  <!-- MUSIC -->
+  <section class="music-player">
+    <div class="music-info">
+      <span class="music-icon">🎶</span>
+      <div>
+        <b>จอมขวัญ — ASIA7</b>
+        <small>เพลงรักที่อยากให้พี่ได้ฟัง ♡</small>
+      </div>
+    </div>
+
+    <a class="music-link"
+       href="https://www.youtube.com/results?search_query=ASIA7%20จอมขวัญ%20official"
+       target="_blank"
+       rel="noopener noreferrer">
+      ▶ ฟังเพลงจอมขวัญ ♡
+    </a>
+
+    <p>แตะเพื่อเปิดเพลงบน YouTube 🎧</p>
+  </section>
+
+  <!-- ENVELOPE -->
+  <div class="envelope-wrap">
+    <div class="envelope" id="env"
+         role="button" tabindex="0"
+         aria-label="เปิดจดหมาย"
+         onclick="openLetter()"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLetter()}">
+
+      <div class="letter">
+        <b>ให้พี่ดนตรี 💌</b><br>
+        จริง ๆ แล้วมีคนแอบชอบพี่อยู่นะ...
+        <br><br>ลองอ่านต่อสิ ♡
+      </div>
+
+      <div class="seal">💌</div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">
+    แตะซองจดหมายเพื่อเปิดความลับ
+  </div>
+
+  <!-- CONFESSION -->
+  <section class="card" id="confession">
+    <div style="font-size:35px">🌷💗🌷</div>
+    <h2>หนูชอบพี่ดนตรีนะคะ</h2>
+
+    <p>
+      ไม่รู้ว่าพี่จะรู้สึกยังไง<br>
+      แต่ทุกครั้งที่ได้คุยกับพี่ หนูก็ดีใจตลอดเลย<br>
+      แค่ได้เห็นพี่ยิ้ม หนูก็เผลอยิ้มตามแล้ว ♡
+    </p>
+
+    <p>
+      ไม่ได้อยากกดดันให้พี่ต้องตอบอะไรนะ<br>
+      แค่อยากบอกความรู้สึกดี ๆ ที่มีให้พี่ก็พอ 🥺
+    </p>
+
+    <div style="font-size:25px">💌</div>
+    <p><b>จากเด็กน้อยที่ชอบพี่มากๆๆๆๆๆๆ</b></p>
+  </section>
+
+  <!-- RESPONSE -->
+  <section id="question" class="card" style="display:block">
+    <p><b>ถ้าพี่อ่านจดหมายจบแล้ว...</b></p>
+    <p>อยากจะบอกว่าพี่น่ารักมากกก</p>
+
+    <div class="actions">
+      <button class="primary" onclick="answerYes()">อ่านน 💗</button>
+      <button class="secondary" id="noBtn" onclick="answerNo()">
+        ขอคิดดูก่อน 🙈
+      </button>
+    </div>
+
+    <div id="reply" aria-live="polite"></div>
+  </section>
+
+  <div class="footer">made with love ♡ just for พี่ดนตรี</div>
+</main>
+
+<script>
+let opened=false;
+
+function openLetter(){
+  if(opened)return;
+  opened=true;
+
+  document.getElementById('env').classList.add('open');
+  document.getElementById('hint').textContent=
+    'ความลับกำลังถูกเปิดออก... 💗';
+
+  setTimeout(()=>{
+    document.getElementById('confession').style.display='block';
+    document.getElementById('hint').textContent=
+      'เปิดจดหมายสำเร็จแล้ว ♡';
+
+    document.getElementById('confession')
+      .scrollIntoView({behavior:'smooth',block:'center'});
+
+    burstHearts(30);
+  },550);
+}
+
+function answerYes(){
+  document.getElementById('reply').innerHTML=
+    'กรี๊ดดดด 🥹💗 หนูยิ้มจนแก้มแตกแล้วนะ!<br>'+
+    'ขอบคุณที่อ่านข้อความของหนูนะคะ ♡';
+
+  burstHearts(65);
+}
+
+function answerNo(){
+  document.getElementById('reply').textContent=
+    'ไม่เป็นไรเลยนะคะ 🥺 หนูรอได้ แค่พี่ได้อ่านก็ดีใจแล้ว ♡';
+
+  burstHearts(12);
+}
+
+function burstHearts(count){
+  const symbols=['💗','💕','♡','✨','🌸','💖'];
+
+  for(let i=0;i<count;i++){
+    const el=document.createElement('span');
+    el.className='sparkle';
+    el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    el.style.left=(20+Math.random()*60)+'vw';
+    el.style.top=(20+Math.random()*60)+'vh';
+    el.style.fontSize=(15+Math.random()*22)+'px';
+    el.style.setProperty('--x',(Math.random()-.5)*350+'px');
+    el.style.setProperty('--y',(Math.random()-.5)*350+'px');
+
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1300);
+  }
+}
+
+function floatHeart(){
+  const el=document.createElement('span');
+  el.className='float';
+  el.textContent=['♡','💗','🌸','✨'][Math.floor(Math.random()*4)];
+  el.style.left=Math.random()*100+'%';
+  el.style.fontSize=(14+Math.random()*20)+'px';
+  el.style.animationDuration=(6+Math.random()*7)+'s';
+
+  document.getElementById('sky').appendChild(el);
+  setTimeout(()=>el.remove(),14000);
+}
+
+setInterval(floatHeart,500);
+
+const noBtn=document.getElementById('noBtn');
+
+noBtn.addEventListener('pointerenter',()=>{
+  if(Math.random()>.45){
+    noBtn.style.transform=
+      `translate(${(Math.random()-.5)*60}px,${(Math.random()-.5)*30}px)`;
+  }
+});
+</script>
+</body>
+</html>
